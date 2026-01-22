@@ -1,0 +1,18 @@
+---
+fluent-bit:
+  enabled: false
+promtail:
+  enabled: true
+loki:
+  config:
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 336h
+  persistence:
+    enabled: true
+    size: 10Gi
+grafana:
+  sidecar:
+    dashboards:
+      datasources:
+        defaultDatasourceEnabled: false

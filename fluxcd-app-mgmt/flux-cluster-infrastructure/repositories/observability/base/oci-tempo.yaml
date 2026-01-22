@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: tempo-distributed
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: oci://ghcr.io/grafana/helm-charts/tempo-distributed
+  ref:
+    tag: 1.59.0

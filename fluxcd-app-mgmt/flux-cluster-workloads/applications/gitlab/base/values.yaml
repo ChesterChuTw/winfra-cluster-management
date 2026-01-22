@@ -1,0 +1,68 @@
+---
+global:
+  ingress:
+    enabled: false
+    configureCertmanager: false
+  time_zone: Asia/Taipei
+  appConfig:
+    omniauth:
+      enabled: true
+      allowSingleSignOn: ['openid_connect']
+      blockAutoCreatedUsers: false
+      providers:
+        - secret: keycloak-oidc
+  migrationRevision: 1
+
+nginx-ingress:
+  enabled: false
+
+prometheus:
+  install: false
+  rbac:
+    create: false
+
+gitlab-runner:
+  install: false
+
+installCertmanager: false
+
+postgresql:
+  persistence:
+    enabled: true
+    size: 8Gi
+  image:
+    repository: bitnamilegacy/postgresql
+  metrics:
+    enabled: true
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/postgres-exporter
+
+redis:
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+  image:
+    repository: bitnamilegacy/redis
+  metrics:
+    enabled: true
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/redis-exporter
+
+minio:
+  persistence:
+    enabled: true
+    size: 10Gi
+
+gitlab:
+  gitaly:
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+  webservice:
+    replicaCount: 1
+  kas:
+    replicaCount: 1

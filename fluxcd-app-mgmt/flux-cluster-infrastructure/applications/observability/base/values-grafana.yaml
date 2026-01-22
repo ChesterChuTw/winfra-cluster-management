@@ -1,0 +1,25 @@
+adminUser: admin
+persistence:
+    enabled: true
+    storageClassName: nfs-client
+    size: 10Gi
+# === datasource 對應你其他三個 backend service ===
+datasources:
+    datasources.yaml:
+        apiVersion: 1
+        datasources:
+            - name: Mimir
+              type: prometheus
+              access: proxy
+              url: http://mimir-nginx.observability.svc.cluster.local/prometheus
+              isDefault: true
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.observability.svc.cluster.local
+            - name: Tempo
+              type: tempo
+              access: proxy
+              url: http://tempo-gateway.observability.svc.cluster.local
+ingress:
+    enabled: false

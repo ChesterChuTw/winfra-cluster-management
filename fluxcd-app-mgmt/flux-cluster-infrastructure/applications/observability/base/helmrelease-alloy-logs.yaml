@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy-logs
+  namespace: observability
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: alloy
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: alloy-logs-helm-values
+      valuesKey: values-alloy-logs.yaml
+    - kind: ConfigMap
+      name: alloy-logs-helm-values-override
+      valuesKey: values-alloy-logs.yaml
+      optional: true
+    - kind: Secret
+      name: alloy-logs-helm-sensitive-values
+      valuesKey: values-alloy-logs.secrets.yaml
+      optional: true

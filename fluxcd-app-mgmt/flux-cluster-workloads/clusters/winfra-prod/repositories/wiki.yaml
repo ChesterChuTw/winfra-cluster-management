@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: wiki-repo
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./repositories/wiki/base
+  # path: ./repositories/wiki/overlays/winfra-prod ## use overlay if need to override base
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-workloads

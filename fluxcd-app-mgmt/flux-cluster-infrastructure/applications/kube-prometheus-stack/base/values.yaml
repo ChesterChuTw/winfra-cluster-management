@@ -1,0 +1,12 @@
+---
+grafana:
+  defaultDashboardsTimezone: 'Asia/Taipei'
+  persistence:
+    enabled: true
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce

@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: observability
+generatorOptions:
+  disableNameSuffixHash: false
+resources:
+  - helmrelease-alloy-logs.yaml
+  - helmrelease-alloy-traces.yaml
+  - helmrelease-grafana.yaml
+  - helmrelease-mimir.yaml
+  - helmrelease-loki.yaml
+  - helmrelease-prometheus.yaml
+  - helmrelease-tempo.yaml
+  - namespace.yaml
+configMapGenerator:
+  - name: mimir-helm-values
+    files:
+      - values-mimir.yaml
+  - name: loki-helm-values
+    files:
+      - values-loki.yaml
+  - name: grafana-helm-values
+    files:
+      - values-grafana.yaml
+  - name: prometheus-helm-values
+    files:
+      - values-prometheus.yaml
+  - name: tempo-helm-values
+    files:
+      - values-tempo.yaml
+  - name: alloy-logs-helm-values
+    files:
+      - values-alloy-logs.yaml
+  - name: alloy-traces-helm-values
+    files:
+      - values-alloy-traces.yaml
+configurations:
+  - kustomizeconfig.yaml

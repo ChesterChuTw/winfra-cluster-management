@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik-crds
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./applications/traefik-crds/overlays/winfra-prod
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+  dependsOn:
+    - name: traefik-repo

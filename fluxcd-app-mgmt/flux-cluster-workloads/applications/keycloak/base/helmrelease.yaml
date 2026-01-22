@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: keycloak
+  namespace: auth
+spec:
+  interval: 10m
+  uninstall:
+    keepHistory: false
+    disableHooks: false
+    deletionPropagation: foreground
+  driftDetection:
+    mode: enabled
+  # upgrade path: 21.8.0 -> 22.2.6 (pg v16, db dump) -> 25.2.0 (pg v17, db restore)
+  chartRef:
+    kind: OCIRepository
+    name: keycloak
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: helm-values
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: helm-values-override
+      valuesKey: values.yaml
+      optional: true
+    - kind: Secret
+      name: helm-sensitive-values
+      valuesKey: values.secrets.yaml
+      optional: true

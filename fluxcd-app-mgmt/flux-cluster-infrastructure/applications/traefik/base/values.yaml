@@ -1,0 +1,14 @@
+---
+deployment:
+  kind: DaemonSet
+service:
+  type: NodePort
+ports:
+  web:
+    nodePort: 32080
+    # redirectTo: websecure
+  websecure:
+    nodePort: 32443
+ingressRoute:
+  dashboard:
+    enabled: false

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manual-ftp-pvc
+  namespace: nextcloud
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ""   # 靜態 PV/PVC 
+  volumeName: manual-ftp-pv

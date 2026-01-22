@@ -1,0 +1,19 @@
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-full-cluster-backup
+  namespace: velero
+spec:
+  schedule: 0 18 * * *
+  # skipImmediately: false # the backup execution will be triggered right after creating the `Schedule` object
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    includedNamespaces:
+      - '*'
+    # excludedNamespaces: []
+    # itemOperationTimeout: 0s
+    metadata: {}
+    ttl: 720h0m0s # the time that retains the backup. # 0s: retain the backup forever
+  useOwnerReferencesInBackup: false # whether to set the ownerReferences field in backed up resources to point to the Backup object. If true, when the Backup object is deleted, the backed up resources will be deleted as well.

@@ -1,0 +1,7 @@
+---
+replicaCount: 1
+storageClass:
+  provisionerName: k8s-sigs.io/nfs-subdir-external-provisioner
+  defaultClass: true
+  reclaimPolicy: Retain
+  volumeBindingMode: WaitForFirstConsumer

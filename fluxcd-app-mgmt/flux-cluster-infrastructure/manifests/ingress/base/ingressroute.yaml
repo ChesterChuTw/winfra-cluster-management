@@ -1,0 +1,36 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${APP_NAME}-http
+  namespace: ${NS}
+spec:
+  entryPoints:
+    - web
+  routes:
+    # Redirect HTTP traffic to HTTPS, but exclude ACME challenge path
+    - match: Host(`${HOST}`) && PathPrefix(`/`) && !PathPrefix(`/.well-known/acme-challenge`)
+      kind: Rule
+      middlewares:
+        - name: ${APP_NAME}-https-redirection
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${APP_NAME}-https
+  namespace: ${NS}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`${HOST}`) && PathPrefix(`/`)
+      kind: Rule
+      middlewares:
+        - name: ${APP_NAME}-hsts-header
+      services:
+        - name: ${SVC}
+          port: ${PORT}
+  # tls:
+  #   store:
+  #     name: ${TLS_STORE_NAME}
+  #     namespace: ${TLS_STORE_NAMESPACE}

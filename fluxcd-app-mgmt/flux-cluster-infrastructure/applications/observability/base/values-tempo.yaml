@@ -1,0 +1,26 @@
+# === Tempo object storage 使用 MinIO bucket ===
+# buckets:
+# - obs-tempo-traces
+tempo:
+    structuredConfig:
+        storage:
+            trace:
+                backend: s3
+                s3:
+                    endpoint: s3.example.com
+                    insecure: false
+                    bucket: obs-tempo-traces
+# 小叢集先壓 1
+distributor:
+    replicas: 1
+ingester:
+    replicas: 1
+querier:
+    replicas: 1
+queryFrontend:
+    replicas: 1
+gateway:
+    enabled: true
+ingress:
+    enabled: false
+# Alloy traces exporter endpoint（OTLP gRPC）會用：tempo-gateway.observability.svc.cluster.local:4317

@@ -1,0 +1,8 @@
+---
+creation_rules:
+  - age: >-
+      age1czjw3cf6t4633av2dca9r845fp3wvjz333m5fqw74h0ryrrnn5xqjnyuug
+    # Only encrypt fields that match these patterns (password, secret, key, token, etc.)
+    # Note: provider is excluded from global rule - only gitlab-oidc-secret-patch.yaml needs it encrypted
+    encrypted_regex: '^(password|secret|key|token|credential|adminPassword|harborAdminPassword|rootPassword|postgresqlPassword|secretContents|secrets\.yml|access_key_id|secret_access_key|accessKeyId|secretAccessKey|access_key|secret_key)$'
+

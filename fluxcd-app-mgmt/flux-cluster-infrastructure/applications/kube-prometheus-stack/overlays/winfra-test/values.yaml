@@ -1,0 +1,10 @@
+prometheus:
+    prometheusSpec:
+        retention: 14d
+        retentionSize: 9GB
+        storageSpec:
+            volumeClaimTemplate:
+                spec:
+                    resources:
+                        requests:
+                            storage: 10Gi

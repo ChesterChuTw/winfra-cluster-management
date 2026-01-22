@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: observability
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: grafana
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: grafana-helm-values
+      valuesKey: values-grafana.yaml
+    - kind: ConfigMap
+      name: grafana-helm-values-override
+      valuesKey: values-grafana.yaml
+      optional: true
+    - kind: Secret
+      name: grafana-helm-sensitive-values
+      valuesKey: values-grafana.secrets.yaml
+      optional: true

@@ -1,0 +1,6 @@
+nextcloud:
+    host: nextcloud.sharkbi.online
+    username: admin
+mariadb:
+    auth:
+        username: nextcloud

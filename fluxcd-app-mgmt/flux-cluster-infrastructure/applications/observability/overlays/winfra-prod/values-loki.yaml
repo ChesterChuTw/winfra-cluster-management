@@ -1,0 +1,4 @@
+loki:
+    storage:
+        s3:
+            endpoint: https://s3.winfra.cs.nycu.edu.tw

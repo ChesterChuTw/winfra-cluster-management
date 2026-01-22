@@ -1,0 +1,11 @@
+---
+image:
+  tag: 2.5.308
+ingress:
+  enabled: false
+postgresql:
+  persistence:
+    size: 10Gi
+  image:
+    repository: bitnamilegacy/postgresql
+    tag: 11.5.0-r90

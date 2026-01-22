@@ -1,0 +1,23 @@
+---
+alertmanager:
+  enabled: false
+
+server:
+  # 本地 TSDB：你若只是 forward，可留短期或小容量
+  persistentVolume:
+    enabled: true
+    storageClass: "nfs-client"
+    size: 30Gi
+
+  # === 關聯註記：metrics remote_write -> Mimir gateway ===
+  remoteWrite:
+    - url: "http://mimir-nginx.observability.svc.cluster.local/api/v1/push"
+      # 若你未來開多租戶，才需要 headers:
+      # headers:
+      #   X-Scope-OrgID: "tenant-1"
+
+# 基礎 k8s metrics
+kubeStateMetrics:
+  enabled: true
+prometheus-node-exporter:
+  enabled: true

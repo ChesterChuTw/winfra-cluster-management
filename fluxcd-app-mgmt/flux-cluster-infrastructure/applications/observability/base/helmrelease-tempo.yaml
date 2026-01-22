@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tempo
+  namespace: observability
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: tempo-distributed
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: tempo-helm-values
+      valuesKey: values-tempo.yaml
+    - kind: ConfigMap
+      name: tempo-helm-values-override
+      valuesKey: values-tempo.yaml
+      optional: true
+    - kind: Secret
+      name: tempo-helm-sensitive-values
+      valuesKey: values-tempo.secrets.yaml
+      optional: true

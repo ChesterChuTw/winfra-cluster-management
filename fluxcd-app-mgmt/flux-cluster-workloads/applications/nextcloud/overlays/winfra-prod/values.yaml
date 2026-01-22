@@ -1,0 +1,14 @@
+nextcloud:
+    host: nextcloud.winfra.cs.nycu.edu.tw
+    username: admin
+    extraVolumes:
+        - name: nfs-ftp-ro
+          persistentVolumeClaim:
+            claimName: manual-ftp-pvc
+    extraVolumeMounts:
+        - name: nfs-ftp-ro
+          mountPath: /var/www/html/data/nfs-ftp-readonly
+          readOnly: true
+mariadb:
+    auth:
+        username: nextcloud

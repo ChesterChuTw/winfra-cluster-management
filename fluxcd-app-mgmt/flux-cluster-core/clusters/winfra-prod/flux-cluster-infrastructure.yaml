@@ -1,0 +1,48 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: flux-infrastructure
+  namespace: flux-system
+spec:
+  url: https://gitlab.com/nctuwinlab/infra/flux-cluster-infrastructure.git
+  ref:
+    branch: main
+  interval: 1m0s
+  timeout: 60s
+  secretRef:
+    name: flux
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-infrastructure
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+  path: ./clusters/winfra-prod
+  force: false
+  prune: true
+  interval: 10m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  patches:
+    - target:
+        group: kustomize.toolkit.fluxcd.io
+        version: v1
+        kind: Kustomization
+      patch: |-
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: ignored
+        spec:
+          retryInterval: 2m30s
+          decryption:
+            provider: sops
+            secretRef:
+              name: sops-age

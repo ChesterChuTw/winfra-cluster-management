@@ -1,0 +1,15 @@
+---
+credentials:
+  useSecret: true
+  #secretContents:
+  #cloud: |
+  #  [default]
+  #  aws_access_key_id = s3user
+  #  aws_secret_access_key = s3password
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.13.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins

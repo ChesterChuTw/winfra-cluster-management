@@ -1,0 +1,11 @@
+---
+# Keep kustomization namespace empty so resources preserve ${NS} placeholders
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+# patches:
+#   - path: patch.yaml
+#     target:
+#       kind: kind-to-be-changed
+#       name: name-to-be-changed

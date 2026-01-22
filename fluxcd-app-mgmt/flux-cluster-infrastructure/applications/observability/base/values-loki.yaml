@@ -1,0 +1,40 @@
+# === Loki object storage 使用 MinIO buckets ===
+# buckets:
+# - obs-loki-chunks
+# - obs-loki-ruler
+# - obs-loki-admin
+deploymentMode: SimpleScalable
+loki:
+    auth_enabled: false
+    schemaConfig:
+        configs:
+            - from: "2025-12-01"
+              store: tsdb
+              object_store: s3
+              schema: v13
+              index:
+                prefix: loki_index_
+                period: 24h
+    storage:
+        type: s3
+        bucketNames:
+            chunks: obs-loki-chunks
+            ruler: obs-loki-ruler
+            admin: obs-loki-admin
+        s3:
+            endpoint: https://s3.example.com
+            s3ForcePathStyle: true
+# simple scalable：關閉 singleBinary，開 read/write/backend
+singleBinary:
+    replicas: 0
+read:
+    replicas: 1
+write:
+    replicas: 1
+backend:
+    replicas: 1
+gateway:
+    enabled: true
+ingress:
+    enabled: false
+# Alloy logs push URL 會用：http://loki-gateway.observability.svc.cluster.local/loki/api/v1/push

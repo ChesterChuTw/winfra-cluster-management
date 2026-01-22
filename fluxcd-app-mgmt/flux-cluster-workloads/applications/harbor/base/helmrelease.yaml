@@ -1,0 +1,36 @@
+# https://artifacthub.io/packages/helm/harbor/harbor/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  uninstall:
+    keepHistory: false
+    disableHooks: false
+    deletionPropagation: foreground
+  chart:
+    spec:
+      chart: harbor
+      # upgrade path: 1.14.3 -> 1.15.2 -> 1.16.4 -> 1.17.3 -> 1.18.1
+      version: 1.18.1
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: helm-values
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: helm-values-override
+      valuesKey: values.yaml
+      optional: true
+    - kind: Secret
+      name: helm-sensitive-values
+      valuesKey: values.secrets.yaml
+      optional: true

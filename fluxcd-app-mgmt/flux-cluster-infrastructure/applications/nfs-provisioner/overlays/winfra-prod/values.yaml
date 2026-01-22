@@ -1,0 +1,4 @@
+---
+nfs:
+  server: '140.113.24.81'
+  path: '/volume1/winlab-infra/k8s-cluster-storage'

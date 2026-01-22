@@ -1,0 +1,27 @@
+---
+# https://artifacthub.io/packages/helm/bitnami/minio
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: minio
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: helm-values
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: helm-values-override
+      valuesKey: values.yaml
+      optional: true
+    - kind: Secret
+      name: helm-sensitive-values
+      valuesKey: values.secrets.yaml
+      optional: true

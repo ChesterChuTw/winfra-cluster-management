@@ -1,0 +1,21 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-cert
+spec:
+  dnsNames:
+    - wiki.sharkbi.online
+    - auth.sharkbi.online
+    - grafana.sharkbi.online
+    - gitlab.sharkbi.online
+    - minio.sharkbi.online
+    - s3.sharkbi.online
+    - nextcloud.sharkbi.online
+    - harbor.sharkbi.online
+    - registry.sharkbi.online
+    - chat.sharkbi.online
+    - office.sharkbi.online
+    - argo.sharkbi.online
+    - win.sharkbi.online
+    - leave.sharkbi.online

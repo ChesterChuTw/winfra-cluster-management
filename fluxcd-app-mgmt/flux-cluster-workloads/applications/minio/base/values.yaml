@@ -1,0 +1,18 @@
+---
+persistence:
+  size: 10Gi
+image:
+  repository: bitnamilegacy/minio
+global:
+  security:
+    allowInsecureImages: true
+    
+# === 以下 buckets 會被 Mimir/Loki/Tempo 使用 ===
+defaultBuckets: >-
+  obs-mimir-blocks,
+  obs-mimir-ruler,
+  obs-mimir-alertmanager,
+  obs-loki-chunks,
+  obs-loki-ruler,
+  obs-loki-admin,
+  obs-tempo-traces

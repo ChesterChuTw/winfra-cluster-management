@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager-repo
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./repositories/cert-manager/base
+  # path: ./repositories/cert-manager/overlays/winfra-test ## use overlay if need to override base
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure

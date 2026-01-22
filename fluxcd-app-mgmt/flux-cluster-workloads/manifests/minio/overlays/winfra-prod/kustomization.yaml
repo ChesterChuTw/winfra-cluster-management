@@ -1,0 +1,33 @@
+---
+# Keep kustomization namespace empty so resources preserve ${NS} placeholders
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+patches:
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+      name: minio-api-ingress
+      namespace: flux-system
+    patch: |-
+      - op: replace
+        path: /spec/postBuild/substitute/HOST
+        value: s3.winfra.cs.nycu.edu.tw
+      - op: replace
+        path: /spec/path
+        value: ./manifests/ingress/overlays/winfra-prod
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+      name: minio-dashboard-ingress
+      namespace: flux-system
+    patch: |-
+      - op: replace
+        path: /spec/postBuild/substitute/HOST
+        value: minio.winfra.cs.nycu.edu.tw
+      - op: replace
+        path: /spec/path
+        value: ./manifests/ingress/overlays/winfra-prod

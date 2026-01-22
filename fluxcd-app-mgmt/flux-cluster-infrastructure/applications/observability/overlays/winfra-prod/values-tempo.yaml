@@ -1,0 +1,6 @@
+tempo:
+    structuredConfig:
+        storage:
+            trace:
+                s3:
+                    endpoint: s3.winfra.cs.nycu.edu.tw

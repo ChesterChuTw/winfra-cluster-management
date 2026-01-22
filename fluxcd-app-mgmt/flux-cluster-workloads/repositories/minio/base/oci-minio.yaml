@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: minio
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  url: oci://registry-1.docker.io/bitnamicharts/minio
+  ref:
+    # upgrade path: 14.10.5 -> 15.0.7 -> 16.0.10
+    tag: 16.0.10

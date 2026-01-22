@@ -1,0 +1,22 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-cert
+spec:
+  dnsNames:
+    - wiki.winfra.cs.nycu.edu.tw
+    - auth.winfra.cs.nycu.edu.tw
+    - grafana.winfra.cs.nycu.edu.tw
+    - gitlab.winfra.cs.nycu.edu.tw
+    - minio.winfra.cs.nycu.edu.tw
+    - s3.winfra.cs.nycu.edu.tw
+    - nextcloud.winfra.cs.nycu.edu.tw
+    - harbor.winfra.cs.nycu.edu.tw
+    - registry.winfra.cs.nycu.edu.tw
+    - chat.winfra.cs.nycu.edu.tw
+    - office.winfra.cs.nycu.edu.tw
+    - argo.winfra.cs.nycu.edu.tw
+    - win.winfra.cs.nycu.edu.tw
+    - leave.winfra.cs.nycu.edu.tw
+    - prometheus.winfra.cs.nycu.edu.tw

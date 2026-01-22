@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: calico-app
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./applications/calico/base
+  # path: ./applications/calico/overlays/winfra-prod ## use overlay if need to override base
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+  dependsOn:
+    - name: calico-repo
+    - name: calico-manifests # calico crds

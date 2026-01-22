@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ${APP_NAME}-hsts-header
+  namespace: ${NS}
+spec:
+  headers:
+    customResponseHeaders:
+      Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ${APP_NAME}-https-redirection
+  namespace: ${NS}
+spec:
+  redirectScheme:
+    permanent: true
+    port: '443'
+    scheme: https

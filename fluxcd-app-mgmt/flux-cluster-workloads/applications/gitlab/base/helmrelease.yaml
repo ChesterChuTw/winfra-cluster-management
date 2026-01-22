@@ -1,0 +1,37 @@
+# https://artifacthub.io/packages/helm/gitlab/gitlab
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  uninstall:
+    keepHistory: false
+    disableHooks: false
+    deletionPropagation: foreground
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: gitlab
+      # upgrade path: 8.2.9 -> 8.3.7 -> 8.4.6 -> 8.5.5 -> 8.6.5 -> 8.7.9 -> 8.8.7 -> 8.9.8 -> 8.10.8 -> 8.11.8 -> 9.0.6
+      # upgrade path: 9.0.6 -> 9.1.6 -> 9.2.8 -> 9.3.6 -> 9.4.6 -> 9.5.4 -> 9.6.2
+      version: 9.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: helm-values
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: helm-values-override
+      valuesKey: values.yaml
+      optional: true
+    - kind: Secret
+      name: helm-sensitive-values
+      valuesKey: values.secrets.yaml
+      optional: true

@@ -1,0 +1,52 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: observability
+generatorOptions:
+  disableNameSuffixHash: false
+resources:
+  - ../../base
+configMapGenerator:
+  - name: alloy-logs-helm-values-override
+    files:
+      - values-alloy-logs.yaml
+  - name: alloy-traces-helm-values-override
+    files:
+      - values-alloy-traces.yaml
+  - name: grafana-helm-values-override
+    files:
+      - values-grafana.yaml
+  - name: mimir-helm-values-override
+    files:
+      - values-mimir.yaml
+  - name: loki-helm-values-override
+    files:
+      - values-loki.yaml
+  - name: prometheus-helm-values-override
+    files:
+      - values-prometheus.yaml
+  - name: tempo-helm-values-override
+    files:
+      - values-tempo.yaml
+secretGenerator:
+  - name: alloy-logs-helm-sensitive-values
+    files:
+      - values-alloy-logs.secrets.yaml
+  - name: alloy-traces-helm-sensitive-values
+    files:
+      - values-alloy-traces.secrets.yaml
+  - name: grafana-helm-sensitive-values
+    files:
+      - values-grafana.secrets.yaml
+  - name: mimir-helm-sensitive-values
+    files:
+      - values-mimir.secrets.yaml
+  - name: loki-helm-sensitive-values
+    files:
+      - values-loki.secrets.yaml
+  - name: prometheus-helm-sensitive-values
+    files:
+      - values-prometheus.secrets.yaml
+  - name: tempo-helm-sensitive-values
+    files:
+      - values-tempo.secrets.yaml

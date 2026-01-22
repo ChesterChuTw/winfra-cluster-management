@@ -1,0 +1,34 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: gitlab
+generatorOptions:
+  disableNameSuffixHash: false
+resources:
+  - ../../base
+configMapGenerator:
+  - name: helm-values-override
+    files:
+      - values.yaml
+secretGenerator:
+  - name: helm-sensitive-values
+    files:
+      - values.secrets.yaml
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: StatefulSet
+      name: gitlab-gitaly
+    patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: gitlab-gitaly
+      spec:
+        template:
+          spec:
+            containers:
+              - name: gitaly
+                startupProbe:
+                  grpc: null

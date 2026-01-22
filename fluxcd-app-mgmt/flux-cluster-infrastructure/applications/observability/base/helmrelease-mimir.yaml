@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mimir
+  namespace: observability
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: mimir-distributed
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: mimir-helm-values
+      valuesKey: values-mimir.yaml
+    - kind: ConfigMap
+      name: mimir-helm-values-override
+      valuesKey: values-mimir.yaml
+      optional: true
+    - kind: Secret
+      name: mimir-helm-sensitive-values
+      valuesKey: values-mimir.secrets.yaml
+      optional: true

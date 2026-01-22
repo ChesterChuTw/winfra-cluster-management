@@ -1,0 +1,16 @@
+configuration:
+    backupStorageLocation:
+        # 建議加上，Velero 預設找 default
+        - name: default
+          # ✅ 每個 BSL 都要自己寫 provider
+          provider: aws
+          bucket: k8s-backup
+          config:
+            region: minio
+            s3ForcePathStyle: true
+            s3Url: https://s3.sharkbi.online
+    volumeSnapshotLocation:
+        - name: default
+          provider: aws
+          config:
+            region: default

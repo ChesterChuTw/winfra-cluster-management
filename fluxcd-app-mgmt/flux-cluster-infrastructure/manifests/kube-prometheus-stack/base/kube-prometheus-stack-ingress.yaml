@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-prometheus-stack-ingress
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./manifests/ingress/overlays/<cluster-name>
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+    namespace: flux-system
+  postBuild:
+    substitute:
+      APP_NAME: kube-prometheus-stack
+      NS: monitoring
+      HOST: grafana.example.com
+      SVC: kube-prometheus-stack-grafana
+      PORT: '80'
+  dependsOn:
+    - name: traefik-manifests
+    - name: cert-manager-manifests
+    - name: kube-prometheus-stack-app
+    # - name: loki-stack-app

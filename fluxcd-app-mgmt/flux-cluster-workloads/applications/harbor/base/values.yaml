@@ -1,0 +1,17 @@
+---
+expose:
+  type: clusterIP
+  tls:
+    enabled: false
+persistence:
+  persistentVolumeClaim:
+    registry:
+      size: '10Gi'
+database:
+  internal:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        memory: 2Gi

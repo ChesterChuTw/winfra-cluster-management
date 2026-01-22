@@ -1,0 +1,7 @@
+talosconfig
+winfra-prod-kmaster1.yaml
+winfra-prod-kmaster2.yaml
+winfra-prod-kmaster3.yaml
+winfra-prod-kworker1.yaml
+winfra-prod-kworker2.yaml
+winfra-prod-kworker3.yaml

@@ -1,0 +1,11 @@
+mimir:
+    structuredConfig:
+        blocks_storage:
+            s3:
+                endpoint: s3.winfra.cs.nycu.edu.tw
+        ruler_storage:
+            s3:
+                endpoint: s3.winfra.cs.nycu.edu.tw
+        alertmanager_storage:
+            s3:
+                endpoint: s3.winfra.cs.nycu.edu.tw

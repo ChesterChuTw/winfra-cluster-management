@@ -1,0 +1,24 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: wiki-ingress
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./manifests/ingress/overlays/<cluster-name>
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+  postBuild:
+    substitute:
+      APP_NAME: wiki
+      NS: wiki
+      HOST: wiki.example.com
+      SVC: wiki
+      PORT: '80'
+  dependsOn:
+    - name: traefik-manifests
+    - name: cert-manager-manifests
+    - name: wiki-app

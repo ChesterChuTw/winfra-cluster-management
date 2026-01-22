@@ -1,0 +1,19 @@
+installation:
+  calicoNetwork:
+    bgp: Enabled
+    hostPorts: Enabled
+    ipPools:
+      - allowedUses:
+          - Workload
+          - Tunnel
+        assignmentMode: Automatic
+        blockSize: 26
+        cidr: 10.244.0.0/16
+        disableBGPExport: false
+        disableNewAllocations: false
+        encapsulation: IPIP
+        name: default-ipv4-ippool
+        natOutgoing: Enabled
+        nodeSelector: all()
+    nodeAddressAutodetectionV4:
+      kubernetes: NodeInternalIP

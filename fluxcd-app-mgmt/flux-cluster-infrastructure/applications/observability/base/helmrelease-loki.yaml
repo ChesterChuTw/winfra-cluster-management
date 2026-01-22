@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: observability
+spec:
+  interval: 10m
+  driftDetection:
+    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: loki
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: loki-helm-values
+      valuesKey: values-loki.yaml
+    - kind: ConfigMap
+      name: loki-helm-values-override
+      valuesKey: values-loki.yaml
+      optional: true
+    - kind: Secret
+      name: loki-helm-sensitive-values
+      valuesKey: values-loki.secrets.yaml
+      optional: true

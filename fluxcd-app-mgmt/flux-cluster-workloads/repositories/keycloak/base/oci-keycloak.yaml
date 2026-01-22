@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: keycloak
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  url: oci://registry-1.docker.io/bitnamicharts/keycloak
+  ref:
+    # upgrade path: 21.8.0 -> 22.2.6 (pg v16, db dump) -> 25.2.0 (pg v17, db restore)
+    tag: 25.2.0

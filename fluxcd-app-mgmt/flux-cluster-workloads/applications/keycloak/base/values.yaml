@@ -1,0 +1,16 @@
+---
+service:
+  type: ClusterIP
+production: true
+metrics:
+  enabled: false
+
+# 優先讀取 X-Forwarded-Proto, X-Forwarded-Host, X-Forwarded-For Headers，不直接使用 request.getScheme() (HTTP)
+proxyHeaders: forwarded 
+postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+image:
+  repository: bitnamilegacy/keycloak
+cache:
+  enabled: true

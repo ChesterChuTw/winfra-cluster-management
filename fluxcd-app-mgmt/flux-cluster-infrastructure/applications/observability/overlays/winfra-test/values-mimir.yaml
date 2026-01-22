@@ -1,0 +1,11 @@
+mimir:
+    structuredConfig:
+        blocks_storage:
+            s3:
+                endpoint: s3.sharkbi.online
+        ruler_storage:
+            s3:
+                endpoint: s3.sharkbi.online
+        alertmanager_storage:
+            s3:
+                endpoint: s3.sharkbi.online

@@ -1,0 +1,29 @@
+---
+clusterName: sharkbi-winlab
+talosVersion: v1.11.5
+kubernetesVersion: v1.33.6
+endpoint: https://192.168.1.200:6443
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+cniConfig:
+  name: none
+nodes:
+  - hostname: kmaster1
+    ipAddress: 192.168.1.111
+    controlPlane: true
+    installDisk: /dev/sda
+  - hostname: kworker1
+    ipAddress: 192.168.1.114
+    controlPlane: false
+    installDisk: /dev/sda
+  - hostname: kworker2
+    ipAddress: 192.168.1.115
+    controlPlane: false
+    installDisk: /dev/sda
+  - hostname: kworker3
+    ipAddress: 192.168.1.116
+    controlPlane: false
+    installDisk: /dev/sda
+    

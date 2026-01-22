@@ -1,0 +1,24 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio-api-ingress
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./manifests/ingress/overlays/<cluster-name>
+  prune: true
+  force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-infrastructure
+  postBuild:
+    substitute:
+      APP_NAME: minio-api
+      NS: minio
+      HOST: s3.example.com
+      SVC: minio
+      PORT: '9000'
+  dependsOn:
+    - name: traefik-manifests
+    - name: cert-manager-manifests
+    - name: minio-app

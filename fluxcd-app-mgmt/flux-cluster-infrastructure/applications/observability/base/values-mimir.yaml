@@ -1,0 +1,51 @@
+# === Mimir object storage 使用 MinIO buckets ===
+# buckets:
+# - obs-mimir-blocks
+# - obs-mimir-ruler
+# - obs-mimir-alertmanager
+mimir:
+    structuredConfig:
+        # 單租戶最省事；Prometheus / Grafana 都不用加 X-Scope-OrgID
+        multitenancy_enabled: false
+        # 建議：把三種 storage 都指到 MinIO（blocks / ruler / alertmanager）
+        blocks_storage:
+            backend: s3
+            s3:
+                endpoint: s3.example.com
+                insecure: false
+                bucket_name: obs-mimir-blocks
+        ruler_storage:
+            backend: s3
+            s3:
+                endpoint: s3.example.com
+                insecure: false
+                bucket_name: obs-mimir-ruler
+        alertmanager_storage:
+            backend: s3
+            s3:
+                endpoint: s3.example.com
+                insecure: false
+                bucket_name: obs-mimir-alertmanager
+# 小叢集：先壓到 1 replica（之後再 scale）
+distributor:
+    replicas: 1
+ingester:
+    replicas: 1
+    extraArgs:
+        # 增加 series limit，避免超過預設的 150000 限制導致數據寫入失敗
+        # 預設是 150000，增加到 500000
+        -ingester.max-global-series-per-user: "500000"
+querier:
+    replicas: 1
+query_frontend:
+    replicas: 1
+ruler:
+    replicas: 1
+store_gateway:
+    replicas: 1
+# 建議開 gateway（或 nginx），讓 Prometheus / Grafana 走單一入口
+gateway:
+    enabled: true
+ingress:
+    enabled: false
+# 後續 Prometheus remote_write URL 會用: http://mimir-nginx.observability.svc.cluster.local/api/v1/push
